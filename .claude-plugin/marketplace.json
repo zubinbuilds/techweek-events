@@ -8,7 +8,7 @@
     {
       "name": "techweek-events",
       "source": "./",
-      "description": "SF Tech Week 2026 concierge: bundled calendar of 1,639 events, goal-based recommendations, and Partiful RSVPs with your approval."
+      "description": "Tech Week 2026 concierge for SF and LA: bundled calendars (1,639 SF + 779 LA events), goal-based recommendations, and Partiful RSVPs with your approval."
     }
   ]
 }

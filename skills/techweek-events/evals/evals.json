@@ -24,6 +24,18 @@
       "prompt": "Is there a 'Voice AI in the Wild' event during Tech Week? Who's hosting and do I need to apply?",
       "expected_output": "Finds 'Voice AI in the Wild -- Demos & Lunch with Vonage + Deepgram' on 2026-10-06 11:00–14:00, FiDi, hosted by Vonage with Deepgram, rsvp_action APPLY (needs host approval), with the Partiful link.",
       "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "What are the featured events for LA Tech Week, where are most of the events located, and what is Boardy throwing?",
+      "expected_output": "Recognizes 'LA Tech Week' and queries with --city la (not the sf default). Lists LA's featured events (query_events.py search --city la --featured) — dates Oct 12–18. Reports neighborhoods ranked by event count (locations --city la), correctly Santa Monica/Venice-heavy. For Boardy, searches by host/keyword in LA and reports honestly that Boardy has no LA Tech Week events in the bundled data (it's an SF-heavy host) rather than inventing one or silently returning unrelated results. Mentions LA's data is calendar-level only (no descriptions yet) if the person asks for more detail on a specific LA event.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Plan my LA Tech Week — I'm a seed-stage founder looking for investors, in town Oct 13-15, staying near Santa Monica.",
+      "expected_output": "Builds a profile and runs recommend --city la, does NOT include the 'ur +1 is a stranger' pinned event (SF-only), respects the day window (Oct 13-15) and the Santa Monica-adjacent preference given LA's sprawl, and flags that recommendations are based on calendar-level data only (no descriptions/RSVP type) — offers to open specific events live before finalizing or RSVPing.",
+      "files": []
     }
   ]
 }

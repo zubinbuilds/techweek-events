@@ -1,10 +1,15 @@
 # RSVPing on Partiful, on the user's behalf
 
-Every SF Tech Week event on the calendar resolves to a Partiful page
-(`partiful.com/e/<id>`), so one playbook covers all of them. This file is the
-step-by-step for a browser-capable agent (Claude in Chrome, Claude's built-in
-browser, Codex browser, Playwright). If you have no browser tool, skip to
-"No browser" at the bottom.
+Every Tech Week event on the calendar — SF or LA — resolves to a Partiful
+page (`partiful.com/e/<id>`), so one playbook covers all of them. This file
+is the step-by-step for a browser-capable agent (Claude in Chrome, Claude's
+built-in browser, Codex browser, Playwright). If you have no browser tool,
+skip to "No browser" at the bottom.
+
+**LA note:** the bundled LA dataset doesn't have `partiful_url` populated yet
+(it's calendar-only — see `references/data-refresh.md`). Open the event's
+`techweek_url` first; it redirects to the Partiful page, and
+`scripts/partiful_extract.js` will read the real state from there same as always.
 
 ## Ground rules (read these first)
 

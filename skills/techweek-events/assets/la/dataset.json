@@ -1,0 +1,49 @@
+{
+  "city": "Los Angeles",
+  "city_slug": "la",
+  "event": "LA Tech Week 2026 (a16z Tech Week)",
+  "calendar_url": "https://www.tech-week.com/calendar/la",
+  "core_dates": [
+    "2026-10-12",
+    "2026-10-13",
+    "2026-10-14",
+    "2026-10-15",
+    "2026-10-16",
+    "2026-10-17",
+    "2026-10-18"
+  ],
+  "scraped_at": "2026-09-15",
+  "timezone": "America/Los_Angeles",
+  "counts": {
+    "events": 779,
+    "with_full_description": 0,
+    "deleted_on_partiful": 0,
+    "by_day": {
+      "2026-10-12": 96,
+      "2026-10-13": 187,
+      "2026-10-14": 175,
+      "2026-10-15": 179,
+      "2026-10-16": 83,
+      "2026-10-17": 44,
+      "2026-10-18": 15
+    },
+    "by_track": {
+      "fundraising-investing": 74,
+      "hack-week-hackathons-and-technical-events": 29,
+      "developer-tools": 15,
+      "ai-infrastructure-compute": 3
+    }
+  },
+  "tracks": {
+    "ai-infrastructure-compute": "AI Infrastructure & Compute",
+    "developer-tools": "Developer Tools",
+    "fundraising-investing": "Fundraising & Investing",
+    "hack-week-hackathons-and-technical-events": "Hack Week: Hackathons & Technical Events"
+  },
+  "pinned_events": [],
+  "notes": [
+    "Bootstrapped from a single calendar pull \u2014 every event has detail_status \"none\" (calendar metadata only: name, host, day, start time, neighborhood, tracks, featured flag).",
+    "Open techweek_url (or find the Partiful page) and run scripts/partiful_extract.js for a full description, end time, RSVP type, and capacity on any specific event.",
+    "registration_status comes from tech-week.com and can change daily; treat it as a hint, not truth."
+  ]
+}

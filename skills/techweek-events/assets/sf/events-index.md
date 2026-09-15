@@ -1,4 +1,4 @@
-# SF Tech Week 2026 — event index
+# San Francisco Tech Week 2026 — event index
 
 Generated from tech-week.com on 2026-09-15. 1639 events. Format: `time | name | host | tracks | neighborhood | flags | url`. Flags: F=featured, D=full description available in events.json, C=closed registration, X=removed from calendar.
 

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Regenerate assets/events-index.md (the no-code, one-line-per-event view) from
-assets/events.json. Run after merge_refresh.py --write."""
+"""Regenerate assets/<city>/events-index.md (the no-code, one-line-per-event
+view) from assets/<city>/events.json. Run after merge_refresh.py --write or
+bootstrap_city.py. Defaults to --city sf."""
+import argparse
 import json
 import os
 from collections import Counter
@@ -10,12 +12,16 @@ ASSETS = os.path.join(os.path.dirname(HERE), 'assets')
 
 
 def main():
-    events = json.load(open(os.path.join(ASSETS, 'events.json'), encoding='utf-8'))
-    meta = json.load(open(os.path.join(ASSETS, 'dataset.json'), encoding='utf-8'))
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('--city', default='sf')
+    args = ap.parse_args()
+    city_dir = os.path.join(ASSETS, args.city)
+    events = json.load(open(os.path.join(city_dir, 'events.json'), encoding='utf-8'))
+    meta = json.load(open(os.path.join(city_dir, 'dataset.json'), encoding='utf-8'))
     pinned = [e for e in events if e.get('pinned')]
     rest = [e for e in events if not e.get('pinned')]
     by_day = Counter(e['date'] for e in rest)
-    lines = ['# SF Tech Week 2026 — event index', '',
+    lines = [f"# {meta.get('city', args.city.upper())} Tech Week 2026 — event index", '',
              f"Generated from tech-week.com on {meta['scraped_at']}. {len(rest)} events. "
              'Format: `time | name | host | tracks | neighborhood | flags | url`. '
              'Flags: F=featured, D=full description available in events.json, C=closed registration, X=removed from calendar.', '']
@@ -33,9 +39,9 @@ def main():
             url = e.get('partiful_url') or e.get('techweek_url')
             lines.append(f"* {e.get('time')} | {e['name']} | {e.get('host')} | {','.join(e.get('tracks') or []) or '-'} | {e.get('neighborhood') or '-'} | {flags} | {url}")
         lines.append('')
-    with open(os.path.join(ASSETS, 'events-index.md'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(city_dir, 'events-index.md'), 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines))
-    print(f'wrote events-index.md ({len(rest)} events, {len(pinned)} pinned)')
+    print(f'wrote {args.city}/events-index.md ({len(rest)} events, {len(pinned)} pinned)')
 
 
 if __name__ == '__main__':

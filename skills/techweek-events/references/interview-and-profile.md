@@ -38,8 +38,10 @@ and stop as soon as you have enough. Most people are done in three exchanges.
 2. **What would make this week a win?** Get 1–3 concrete goals. Nudge vague
    answers toward specifics: "meet people" → *which* people — investors,
    customers, cofounders, hires, peers in your space?
-3. **When are you around?** Days in SF (Oct 5–11), earliest start, latest
-   finish, and how packed they want to be (default: 3 events/day).
+3. **Which city, and when are you around?** SF Tech Week (Oct 5–11) or LA
+   Tech Week (Oct 12–18) — skip this if they've already made it obvious.
+   Then: days in town, earliest start, latest finish, and how packed they
+   want to be (default: 3 events/day).
 4. **Dealbreakers and tastes.** Skip mornings? No workshops? No parties? Prefer
    small dinners over big mixers? Interested in the run clubs / cold plunges /
    yoga (off by default — there are dozens)?

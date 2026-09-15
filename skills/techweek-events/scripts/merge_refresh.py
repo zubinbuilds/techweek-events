@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Merge a fresh calendar pull (output of scripts/refresh_calendar.js) into
-assets/events.json, keeping the Partiful details already collected.
+assets/<city>/events.json, keeping the Partiful details already collected.
 
 Usage:
-  merge_refresh.py fresh.json            # report what changed, write nothing
-  merge_refresh.py fresh.json --write    # update assets/events.json + dataset.json
+  merge_refresh.py fresh.json                    # report what changed (city=sf), write nothing
+  merge_refresh.py fresh.json --city la --write   # update assets/la/events.json + dataset.json
+
+For a city with no bundled dataset yet, use bootstrap_city.py instead — this
+script is for refreshing a city that's already been onboarded.
 
 Records already in the dataset keep their description/capacity/partiful_url
 (those come from Partiful and don't change often); calendar-level fields
@@ -15,6 +18,7 @@ the events out of the browser in slices, concatenate them into one array).
 New events are added with detail_status "none". Events that disappeared from the calendar are kept but marked registration_status
 "removed" so earlier recommendations still resolve.
 """
+import argparse
 import json
 import os
 import sys
@@ -27,10 +31,13 @@ CAL_FIELDS = ['name', 'host', 'cohosts', 'sponsors', 'date', 'time', 'neighborho
 
 
 def main():
-    if len(sys.argv) < 2:
-        print(__doc__)
-        sys.exit(1)
-    fresh_path, write = sys.argv[1], '--write' in sys.argv
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('fresh_path')
+    ap.add_argument('--city', default='sf', help='city slug already bundled under assets/ (default sf)')
+    ap.add_argument('--write', action='store_true')
+    args = ap.parse_args()
+    fresh_path, write = args.fresh_path, args.write
+    city_dir = os.path.join(ASSETS, args.city)
     with open(fresh_path, encoding='utf-8') as f:
         fresh = json.load(f)
     if isinstance(fresh, str):          # tool returned a JSON string literal
@@ -39,9 +46,9 @@ def main():
         fresh = {'events': fresh}
     fresh_events = {e['id']: e for e in fresh['events']}
 
-    with open(os.path.join(ASSETS, 'events.json'), encoding='utf-8') as f:
+    with open(os.path.join(city_dir, 'events.json'), encoding='utf-8') as f:
         events = json.load(f)
-    with open(os.path.join(ASSETS, 'dataset.json'), encoding='utf-8') as f:
+    with open(os.path.join(city_dir, 'dataset.json'), encoding='utf-8') as f:
         meta = json.load(f)
 
     by_id = {e['id']: e for e in events}
@@ -86,15 +93,15 @@ def main():
 
     if write:
         events.sort(key=lambda r: (0 if r.get('pinned') else 1, r.get('date') or '', r.get('time') or ''))
-        with open(os.path.join(ASSETS, 'events.json'), 'w', encoding='utf-8') as f:
+        with open(os.path.join(city_dir, 'events.json'), 'w', encoding='utf-8') as f:
             json.dump(events, f, ensure_ascii=False, indent=0)
         meta['scraped_at'] = fresh.get('fetchedAt', str(date.today()))[:10]
         meta['counts']['events'] = len([e for e in events if not e.get('pinned')])
-        with open(os.path.join(ASSETS, 'dataset.json'), 'w', encoding='utf-8') as f:
+        with open(os.path.join(city_dir, 'dataset.json'), 'w', encoding='utf-8') as f:
             json.dump(meta, f, indent=2)
         print('written.')
         import subprocess
-        subprocess.run([sys.executable, os.path.join(HERE, 'build_index.py')], check=False)
+        subprocess.run([sys.executable, os.path.join(HERE, 'build_index.py'), '--city', args.city], check=False)
 
 
 if __name__ == '__main__':

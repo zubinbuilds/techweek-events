@@ -1,28 +1,35 @@
 #!/usr/bin/env python3
-"""Query the bundled SF Tech Week 2026 dataset (assets/events.json).
+"""Query the bundled Tech Week 2026 dataset (assets/<city>/events.json).
 
 Python 3.8+, standard library only. Run from anywhere; the script finds the
-dataset relative to its own location.
+dataset relative to its own location. Two cities are bundled: `sf` (San
+Francisco, Oct 5-11) and `la` (Los Angeles, Oct 12-18) — pass `--city la` for
+LA, everything defaults to `sf` when omitted. Run `cities` to see what's
+bundled and how fresh each one is.
 
 Subcommands
-  stats                         Dataset overview: dates, counts, tracks, freshness.
-  days                          Events per day.
-  tracks                        Track slugs with counts and display names.
-  hosts [--top N]               Most active hosts.
+  cities                         List bundled cities, dates, and freshness.
+  stats     [--city sf|la]       Dataset overview: dates, counts, tracks, freshness.
+  days      [--city sf|la]       Events per day.
+  tracks    [--city sf|la]       Track slugs with counts and display names.
+  hosts     [--city sf|la] [--top N]   Most active hosts.
+  locations [--city sf|la] [--top N]   Neighborhoods ranked by event count.
   search  [terms] [filters]     Keyword search, ranked. Terms match name, host, tracks, description.
   show    <id|url|name-part>    Full record(s) for one event.
   recommend --profile FILE      Ranked, per-day recommendations for a person, from a profile JSON.
   day     <YYYY-MM-DD>          Everything on one day, in time order (filters apply).
 
 Common filters (search / recommend / day)
-  --track SLUG        (repeatable)   --day YYYY-MM-DD   (repeatable)
-  --after HH:MM       --before HH:MM  (start time, local Pacific)
-  --host TEXT         --featured      --open-only        --no-apply       --with-details
-  --exclude TERM      (repeatable; drops events matching the term)
-  --limit N           --format text|json|md
+  --city sf|la         (default sf)       --track SLUG        (repeatable)
+  --day YYYY-MM-DD     (repeatable)       --after HH:MM       --before HH:MM  (local time)
+  --host TEXT          --featured         --open-only         --no-apply      --with-details
+  --exclude TERM        (repeatable; drops events matching the term)
+  --limit N             --format text|json|md
 
 Examples
   query_events.py search "fintech founders" --day 2026-10-07 --open-only
+  query_events.py search --city la --featured
+  query_events.py locations --city la --top 15
   query_events.py recommend --profile /tmp/profile.json --limit 30
   query_events.py show 0QoMnjzM2NOldF9syKOn
 """
@@ -35,12 +42,17 @@ from collections import Counter, defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(os.path.dirname(HERE), 'assets')
+CITIES = {
+    'sf': 'San Francisco',
+    'la': 'Los Angeles',
+}
 
 
-def load():
-    with open(os.path.join(ASSETS, 'events.json'), encoding='utf-8') as f:
+def load(city='sf'):
+    city_dir = os.path.join(ASSETS, city)
+    with open(os.path.join(city_dir, 'events.json'), encoding='utf-8') as f:
         events = json.load(f)
-    with open(os.path.join(ASSETS, 'dataset.json'), encoding='utf-8') as f:
+    with open(os.path.join(city_dir, 'dataset.json'), encoding='utf-8') as f:
         meta = json.load(f)
     return events, meta
 
@@ -213,10 +225,13 @@ def score_event(e, weights, tracks_wanted, avoid):
             direct += 1
     if direct == 0:
         score *= 0.5   # synonym-only matches are weak evidence
-    if e.get('featured'):
-        score += 1.5
-    if e.get('detail_status') == 'full':
-        score += 0.5   # substantive, curated events are more likely to have been opened
+    if score > 0:
+        # these are tie-breaker bonuses, not standalone signal — an event with zero
+        # keyword/track relevance shouldn't surface just for being featured/detailed.
+        if e.get('featured'):
+            score += 1.5
+        if e.get('detail_status') == 'full':
+            score += 0.5   # substantive, curated events are more likely to have been opened
     if e.get('invite_only'):
         score -= 2.0
     return score, sorted(set(why))
@@ -336,6 +351,29 @@ def cmd_hosts(events, meta, a):
             c[h] += 1
     for h, n in c.most_common(a.top):
         print(f'{n:3d}  {h}')
+
+
+def cmd_locations(events, meta, a):
+    c = Counter(e.get('neighborhood') or '(unspecified)' for e in events if not e.get('pinned'))
+    total = sum(c.values())
+    for loc, n in c.most_common(a.top):
+        print(f'{n:4d}  ({100 * n / total:4.1f}%)  {loc}')
+
+
+def cmd_cities(events, meta, a):
+    for slug, name in CITIES.items():
+        city_dir = os.path.join(ASSETS, slug)
+        meta_path = os.path.join(city_dir, 'dataset.json')
+        if not os.path.exists(meta_path):
+            print(f'{slug:4s} {name:20s} not bundled')
+            continue
+        with open(meta_path, encoding='utf-8') as f:
+            m = json.load(f)
+        dates = m.get('core_dates') or []
+        span = f'{dates[0]} to {dates[-1]}' if dates else '?'
+        print(f"{slug:4s} {name:20s} {span:24s} {m['counts']['events']:5d} events, "
+              f"{m['counts'].get('with_full_description', 0):4d} with full descriptions, "
+              f"scraped {m['scraped_at']}")
 
 
 def cmd_search(events, meta, a):
@@ -565,7 +603,11 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest='cmd', required=True)
 
+    def add_city(sp):
+        sp.add_argument('--city', choices=list(CITIES), default='sf', help='sf (default) or la')
+
     def common(sp):
+        add_city(sp)
         sp.add_argument('--track', action='append')
         sp.add_argument('--day', action='append')
         sp.add_argument('--after')
@@ -580,13 +622,15 @@ def main():
         sp.add_argument('--limit', type=int, default=25)
         sp.add_argument('--format', choices=['text', 'json', 'md'], default='text')
 
-    sub.add_parser('stats')
-    sub.add_parser('days')
-    sub.add_parser('tracks')
-    sp = sub.add_parser('hosts'); sp.add_argument('--top', type=int, default=40)
+    sub.add_parser('cities')
+    sp = sub.add_parser('stats'); add_city(sp)
+    sp = sub.add_parser('days'); add_city(sp)
+    sp = sub.add_parser('tracks'); add_city(sp)
+    sp = sub.add_parser('hosts'); add_city(sp); sp.add_argument('--top', type=int, default=40)
+    sp = sub.add_parser('locations'); add_city(sp); sp.add_argument('--top', type=int, default=40)
     sp = sub.add_parser('search'); sp.add_argument('terms', nargs='*'); common(sp)
     sp = sub.add_parser('day'); sp.add_argument('date'); common(sp)
-    sp = sub.add_parser('show'); sp.add_argument('query'); sp.add_argument('--limit', type=int, default=3)
+    sp = sub.add_parser('show'); sp.add_argument('query'); add_city(sp); sp.add_argument('--limit', type=int, default=3)
     sp.add_argument('--format', choices=['text', 'json'], default='text')
     sp = sub.add_parser('recommend'); sp.add_argument('--profile', required=True)
     sp.add_argument('--per-day', dest='per_day', type=int, default=3)
@@ -594,9 +638,13 @@ def main():
     common(sp)
 
     a = ap.parse_args()
-    events, meta = load()
+    if a.cmd == 'cities':
+        cmd_cities(None, None, a)
+        return
+    events, meta = load(getattr(a, 'city', 'sf'))
     {'stats': cmd_stats, 'days': cmd_days, 'tracks': cmd_tracks, 'hosts': cmd_hosts,
-     'search': cmd_search, 'day': cmd_day, 'show': cmd_show, 'recommend': cmd_recommend}[a.cmd](events, meta, a)
+     'locations': cmd_locations, 'search': cmd_search, 'day': cmd_day, 'show': cmd_show,
+     'recommend': cmd_recommend}[a.cmd](events, meta, a)
 
 
 if __name__ == '__main__':
