@@ -144,6 +144,32 @@ Everything is in `references/rsvp-partiful.md`. The short version:
 Without a browser tool you can't RSVP — give them the ordered list with links
 and the answers they'll be asked for.
 
+## Sharing a schedule
+
+Once a list is approved (mode 2 or after RSVPing in mode 3), offer to turn it
+into a page instead of leaving it as chat text: "Want a shareable page for
+this?" Build the small JSON `scripts/build_schedule_page.py` expects — see
+`assets/schedule-example.json` for the shape — from the same curated list and
+"why" lines you already wrote for the chat output, then:
+
+- **Claude (claude.ai, Cowork, Claude Code with an Artifact tool):** run
+  `python3 scripts/build_schedule_page.py schedule.json -o page.html`, then
+  publish `page.html` with the Artifact tool. It's private to the person until
+  they share the link — that's the "here's my Tech Week schedule" page.
+- **ChatGPT:** as of 2026, ChatGPT has a real "Sites" feature (Plus, Pro, and
+  workspace plans; not Free/Go; not yet in the EEA/UK/Switzerland) that
+  publishes a page with its own shareable URL, built by asking ChatGPT to make
+  one (in Work mode, or mentioning `@Sites`). A skill can't invoke Sites
+  directly, so generate the HTML the same way and tell the person: "Here's
+  your schedule as a page — ask me to turn this into a Site and I'll publish
+  it with a link," or just hand them the HTML file to share as-is if they
+  don't have Sites access.
+- **No Artifact tool and no Sites:** hand over the generated HTML file; it's a
+  normal self-contained page, no server needed.
+
+The generated page has no external requests and no tracking — it only reads
+the JSON you hand it.
+
 ## When the data isn't enough
 
 See `references/data-refresh.md`. Rules of thumb: a specific event you can't

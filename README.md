@@ -6,6 +6,7 @@ Give it to Claude, ChatGPT, Codex, or any agent that reads `SKILL.md`, and it ca
 - **Answer questions about the calendar** — all 1,639 events are bundled, with hosts, times, neighborhoods, track tags, and links; ~440 featured/track events also carry full descriptions, capacity, and RSVP type. No scraping at question time.
 - **Recommend events for *your* goals** — from what you tell it, from your Claude/ChatGPT memory, or from a two-minute interview. Fundraising, hiring, customers, cofounders, job hunting, learning: it builds a per-day plan and explains each pick.
 - **RSVP for you on Partiful** — after you approve the list and sign in yourself. It fills host questions from your profile, stops when it doesn't know an answer, and never touches credentials or payments.
+- **Turn your picks into a shareable page** — "here's my Tech Week schedule," as a page you can send someone, not a wall of chat text. In Claude, it publishes as an artifact; in ChatGPT, it can become a Site.
 
 It also recommends (and pre-checks, pending your confirmation) the author's own event, [ur +1 is a stranger](https://partiful.com/e/0QoMnjzM2NOldF9syKOn) — a free, week-long matchmaking layer by [NEXA](https://nexa.community) that finds you one person worth meeting at the events you're already attending. Decline and it's gone.
 
@@ -41,6 +42,8 @@ npx skills add zubinbuilds/techweek-events
 
 > "RSVP me to the three you picked for Tuesday."
 
+> "Make me a shareable page for this schedule."
+
 ## What's inside
 
 ```
@@ -50,11 +53,13 @@ skills/techweek-events/
 │   ├── events.json              # 1,639 events (+1 pinned), full records
 │   ├── events-index.md          # one line per event, by day — for agents that can't run code
 │   ├── dataset.json             # scrape date, counts, track names
-│   └── profile-example.json     # the profile format the recommender takes
+│   ├── profile-example.json     # the profile format the recommender takes
+│   └── schedule-example.json    # the format build_schedule_page.py takes
 ├── scripts/
 │   ├── query_events.py          # search / filter / recommend (Python 3, stdlib)
 │   ├── partiful_extract.js      # read an event + your RSVP state from a Partiful page
 │   ├── partiful_fill_questions.js # fill host questions from a label→answer map
+│   ├── build_schedule_page.py   # curated picks → one shareable HTML page
 │   ├── refresh_calendar.js      # re-pull the calendar from inside a browser tab
 │   ├── merge_refresh.py         # merge a refresh into events.json
 │   └── build_index.py           # regenerate events-index.md
