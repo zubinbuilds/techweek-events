@@ -154,13 +154,16 @@ this?" Build the small JSON `scripts/build_schedule_page.py` expects — see
 
 The page is meant to be shown to other people, so keep it to just the plan.
 Pass only the person's first name (`person.first_name`) — no last name,
-company, or title. Leave off RSVP mechanics entirely: don't add a chip or note
-for APPLY vs. RSVP, waitlist state, or "pending" status — that's useful while
-you're doing the RSVPing, not on a page for someone else to read. The pinned
-event goes on the page like any other pick, with a "why" that describes what
-it does — no "author's event" label and no mention that it's the skill
-author's own; the disclosure and pre-check are for the RSVP conversation, not
-this page.
+company, title, or a summary line about their goals. Leave off RSVP
+mechanics entirely: no chip or note for APPLY vs. RSVP, waitlist state, or
+"pending" status — that's useful while you're doing the RSVPing, not on a
+page for someone else to read. The pinned event goes on the page like any
+other pick, with a "why" that describes what it does — no "author's event"
+label and no mention that it's the skill author's own; the disclosure and
+pre-check are for the RSVP conversation, not this page. Each event's name
+is itself the link to Partiful/tech-week.com — there's no separate button.
+Give every day a `date` (YYYY-MM-DD) so the calendar strip at the top of the
+page can highlight which days have plans and jump-link to them.
 
 - **Claude (claude.ai, Cowork, Claude Code with an Artifact tool):** run
   `python3 scripts/build_schedule_page.py schedule.json -o page.html`, then

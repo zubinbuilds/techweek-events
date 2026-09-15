@@ -1,9 +1,9 @@
 {
-  "_comment": "Example input for scripts/build_schedule_page.py — a curated, approved schedule (not the raw recommend output). Built from the Ada Lovelace demo profile in profile-example.json, real events from the bundled dataset. Copy the shape, not the specifics. Only a first name goes on the page — no last name, company, title, or RSVP mechanics.",
+  "_comment": "Example input for scripts/build_schedule_page.py — a curated, approved schedule (not the raw recommend output). Built from the Ada Lovelace demo profile in profile-example.json, real events from the bundled dataset. Copy the shape, not the specifics. Only a first name goes on the page — no last name, company, title, or RSVP mechanics. Give each day a \"date\" (YYYY-MM-DD) so the week strip at the top can highlight and jump-link to it.",
   "person": {"first_name": "Ada"},
-  "note": "A seed-stage AI devtools founder's week: raising, finding enterprise design partners, and hiring a founding engineer.",
   "days": [
     {
+      "date": "2026-10-05",
       "label": "Mon Oct 5",
       "events": [
         {
@@ -17,6 +17,7 @@
       ]
     },
     {
+      "date": "2026-10-06",
       "label": "Tue Oct 6",
       "events": [
         {
@@ -38,6 +39,7 @@
       ]
     },
     {
+      "date": "2026-10-07",
       "label": "Wed Oct 7",
       "events": [
         {
@@ -59,6 +61,7 @@
       ]
     },
     {
+      "date": "2026-10-08",
       "label": "Thu Oct 8",
       "events": [
         {
