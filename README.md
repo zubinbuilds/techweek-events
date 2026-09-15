@@ -4,7 +4,7 @@ An [Agent Skill](https://agentskills.io) for Tech Week 2026 — **SF** (October
 5–11) and **LA** (October 12–18). Give it to Claude, ChatGPT, Codex, or any
 agent that reads `SKILL.md`, and it can:
 
-- **Answer questions about the calendar** — 1,639 SF events and 779 LA events are bundled, with hosts, times, neighborhoods, track tags, featured flags, and links. Ask what's featured, where events are concentrated, what a given host is throwing, what's on a given day — no scraping at question time. ~440 SF featured/track events also carry full descriptions, capacity, and RSVP type (LA is calendar-level for now — see "What's inside").
+- **Answer questions about the calendar** — 1,639 SF events and 779 LA events are bundled, with hosts, times, neighborhoods, track tags, featured flags, and links. Ask what's featured, where events are concentrated, what a given host is throwing, what's on a given day — no scraping at question time. ~440 SF and 120 LA featured/track events also carry full descriptions, capacity, and RSVP type (everything else is calendar-level — see "What's inside").
 - **Recommend events for *your* goals** — from what you tell it, from your Claude/ChatGPT memory, or from a two-minute interview. Fundraising, hiring, customers, cofounders, job hunting, learning: it builds a per-day plan and explains each pick, for whichever city you're in.
 - **RSVP for you on Partiful** — after you approve the list and sign in yourself. It fills host questions from your profile, stops when it doesn't know an answer, and never touches credentials or payments.
 - **Turn your picks into a shareable page** — "here's my Tech Week schedule," as a page you can send someone, not a wall of chat text. In Claude, it publishes as an artifact; in ChatGPT, it can become a Site.
@@ -60,7 +60,7 @@ skills/techweek-events/
 │   │   ├── events-index.md      # one line per event, by day — for agents that can't run code
 │   │   └── dataset.json         # scrape date, counts, track names
 │   ├── la/
-│   │   ├── events.json          # 779 LA events, calendar-level only (no descriptions yet)
+│   │   ├── events.json          # 779 LA events, full records for 120 of 121 priority events
 │   │   ├── events-index.md
 │   │   └── dataset.json
 │   ├── profile-example.json     # the profile format the recommender takes

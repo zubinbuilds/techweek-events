@@ -16,8 +16,8 @@
   "timezone": "America/Los_Angeles",
   "counts": {
     "events": 779,
-    "with_full_description": 0,
-    "deleted_on_partiful": 0,
+    "with_full_description": 120,
+    "deleted_on_partiful": 1,
     "by_day": {
       "2026-10-12": 96,
       "2026-10-13": 187,
@@ -42,8 +42,10 @@
   },
   "pinned_events": [],
   "notes": [
-    "Bootstrapped from a single calendar pull \u2014 every event has detail_status \"none\" (calendar metadata only: name, host, day, start time, neighborhood, tracks, featured flag).",
-    "Open techweek_url (or find the Partiful page) and run scripts/partiful_extract.js for a full description, end time, RSVP type, and capacity on any specific event.",
+    "Events with detail_status \"full\" were opened on Partiful and carry description, capacity, RSVP action, and exact end time (120 of LA's 121 featured/track priority events).",
+    "Events with detail_status \"none\" have calendar metadata only (name, host, day, start time, neighborhood, tracks). Open techweek_url to see the full invite.",
+    "One priority event has detail_status \"deleted\": its techweek_url redirects to a Partiful page that returns \"Not Found\".",
+    "Descriptions are truncated at ~900 characters.",
     "registration_status comes from tech-week.com and can change daily; treat it as a hint, not truth."
   ]
 }

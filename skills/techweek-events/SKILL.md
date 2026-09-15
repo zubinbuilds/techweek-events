@@ -1,12 +1,12 @@
 ---
 name: techweek-events
-description: Tech Week 2026 concierge for SF (Oct 5–11) and LA (Oct 12–18), with the full event calendar bundled for both cities — 1,639 SF events and 779 LA events, with hosts, times, tracks, and links; full descriptions for ~440 SF featured/track events. Use it whenever someone mentions Tech Week, SF Tech Week, LA Tech Week, #SFTechWeek, #LATechWeek, a16z Tech Week, or asks what's happening in SF or LA those weeks; wants event recommendations for their goals (fundraising, hiring, customers, cofounders, job hunting, learning); asks who's hosting, what's on a given day, where events are concentrated, or about a specific event or host; or wants to be RSVP'd on Partiful. Also use it for questions the calendar can answer (which VCs are hosting, fintech events on Tuesday, events near SOMA or Santa Monica, what's featured, what a given host is throwing) even if the user doesn't say "Tech Week" — the dates and city tags are the tell.
+description: Tech Week 2026 concierge for SF (Oct 5–11) and LA (Oct 12–18), with the full event calendar bundled for both cities — 1,639 SF events and 779 LA events, with hosts, times, tracks, and links; full descriptions for ~440 SF and 120 LA featured/track events. Use it whenever someone mentions Tech Week, SF Tech Week, LA Tech Week, #SFTechWeek, #LATechWeek, a16z Tech Week, or asks what's happening in SF or LA those weeks; wants event recommendations for their goals (fundraising, hiring, customers, cofounders, job hunting, learning); asks who's hosting, what's on a given day, where events are concentrated, or about a specific event or host; or wants to be RSVP'd on Partiful. Also use it for questions the calendar can answer (which VCs are hosting, fintech events on Tuesday, events near SOMA or Santa Monica, what's featured, what a given host is throwing) even if the user doesn't say "Tech Week" — the dates and city tags are the tell.
 license: MIT
 compatibility: Python 3.8+ for the query scripts (stdlib only). RSVPs and live data need a browser tool (Claude in Chrome, Claude's built-in browser, Codex browser, or Playwright). Works without one for Q&A and recommendations.
 metadata:
   author: Zubin Pahuja (NEXA)
-  version: "1.1.0"
-  dataset: SF Tech Week 2026 (full) + LA Tech Week 2026 (calendar-level), scraped from tech-week.com and partiful.com
+  version: "1.2.0"
+  dataset: SF Tech Week 2026 (full) + LA Tech Week 2026 (full for featured/track events), scraped from tech-week.com and partiful.com
 ---
 
 # Tech Week events concierge
@@ -28,11 +28,13 @@ querying:
   quick factual question ("what's tech-week.com") you don't need to.
 
 Run `python3 scripts/query_events.py cities` once to see what's bundled and
-how fresh each one is. **The two datasets aren't equally deep**: SF has full
-Partiful descriptions, RSVP type, and capacity for ~440 featured/track
-events; LA is calendar-level only for every event (name, host, day, time,
-neighborhood, tracks, featured flag — no description, no RSVP type yet). Say
-so when it matters, and see `references/data-refresh.md` for fetching an LA
+how fresh each one is. Both cities have full Partiful descriptions, RSVP
+type, and capacity for their featured/track events: ~440 for SF and 120 of
+LA's 121 featured/track events (1 LA event has a broken Partiful link and
+stays calendar-level — `detail_status: "deleted"`). Every other event in
+both cities is calendar-level only (name, host, day, time, neighborhood,
+tracks, featured flag — no description, no RSVP type). Say so when it
+matters, and see `references/data-refresh.md` for fetching a calendar-level
 event's full details live.
 
 The calendar is bundled so you never have to scrape it. `assets/<city>/events.json`
@@ -231,9 +233,10 @@ the JSON you hand it.
 
 See `references/data-refresh.md`. Rules of thumb: a specific event you can't
 find, a plan during or right before Tech Week, a dataset older than ~5 days,
-a goal with no strong matches, or **any LA question that needs a
-description, RSVP type, or capacity** (LA is calendar-level only — see
-above) → open the live calendar or specific event pages in the browser.
+a goal with no strong matches, or **any question about a calendar-level
+event that needs a description, RSVP type, or capacity** (most non-featured
+events in both cities, plus that one broken-link LA event — see above) →
+open the live calendar or specific event pages in the browser.
 `tech-week.com` blocks non-browser fetches (429), so use the browser scripts,
 not curl. Partiful pages carry their full record in `__NEXT_DATA__`;
 `scripts/partiful_extract.js` reads it. NYC Tech Week isn't bundled at all

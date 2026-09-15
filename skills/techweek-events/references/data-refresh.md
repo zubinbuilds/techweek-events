@@ -7,24 +7,28 @@ tech-week.com calendar for that city as of the `scraped_at` date in its
 `dataset.json` (run `query_events.py cities` for both at a glance, or
 `stats --city <city>` for one).
 
-| you have, for every event in both cities | you have only for SF's ~440 "priority" events | you don't have |
+| you have, for every event in both cities | you have only for each city's "priority" events (~440 SF, 120 of 121 LA) | you don't have |
 |---|---|---|
 | name, host, co-hosts, sponsors | full description (~900 chars) | events added after `scraped_at` |
 | day, start time, neighborhood | end time, exact venue neighborhood | events that were removed or rescheduled since |
 | track tags, featured flag | RSVP type (RSVP vs APPLY), capacity, at-capacity | live capacity / waitlist state |
-| registration status (as of scrape) | Partiful URL | descriptions for SF's other ~1,200, or **any** LA event |
+| registration status (as of scrape) | Partiful URL | descriptions for SF's other ~1,200 or LA's other ~660 non-priority events |
 | tech-week.com redirect link | | Boston / NYC Tech Week (not bundled at all) |
 | | | which events sell tickets (Partiful hides pricing from the calendar; `partiful_extract.js` reports `ticketed`) |
 
-SF's ~440 detailed events are the featured and track-tagged ones — that's
-where the substantive programming is; the remaining ~1,200 are dominated by
-run clubs, coffee meetups, and small mixers, searchable by name and host but
-you'd have to open one to know more. **LA has zero detailed events yet** —
-it was bootstrapped from a single calendar pull (`bootstrap_city.py`, see
-below), not walked event-by-event on Partiful the way SF was. Every LA
-record is calendar-level: name, host, day, time, neighborhood, tracks,
-featured flag. Open specific events live (below) before recommending or
-RSVPing anyone to them.
+Each city's "priority" events are the featured and track-tagged ones —
+that's where the substantive programming is; the remaining events are
+dominated by run clubs, coffee meetups, and small mixers, searchable by
+name and host but you'd have to open one to know more. SF has ~440 detailed
+priority events; LA has 120 of its 121 priority events fully detailed
+(walked event-by-event on Partiful the same way SF was) — the 1 exception
+is `fab5528b-dd6f-49b7-a127-a19ae6dd9c1c` ("Securing the Future: Investing
+in America's Critical Industries"), whose techweek_url redirects to a
+Partiful page that returns "Not Found"; it's marked
+`detail_status: "deleted"` and stays calendar-level. Every non-priority
+event in both cities is calendar-level only: name, host, day, time,
+neighborhood, tracks, featured flag. Open specific calendar-level events
+live (below) before recommending or RSVPing anyone to them.
 
 ## When to go live
 
@@ -37,9 +41,10 @@ RSVPing anyone to them.
 - `scraped_at` is **more than ~5 days old** and the user wants a plan → refresh.
 - A goal has **no strong matches** → the answer may be in an event without a
   description. Open the top few candidates from `search` and read them.
-- **Any LA event** you're about to recommend or RSVP someone to → open it
+- **Any calendar-level event** (non-priority in either city, or LA's one
+  broken-link event) you're about to recommend or RSVP someone to → open it
   live first (see below) to get a description, RSVP type, and capacity —
-  the bundled LA data doesn't have these at all.
+  the bundled data doesn't have these for calendar-level events.
 - The user asks about **Boston or NYC Tech Week** → not bundled. Same
   scripts work; see "Onboarding a new city" below.
 - The user asks about **official a16z programming, speakers, or news** → web
@@ -112,7 +117,8 @@ python3 scripts/bootstrap_city.py fresh.json --city nyc --name "New York" \
 Check `tech-week.com`'s own homepage for each city's actual date range before
 running this — they move year to year. This writes
 `assets/nyc/{events.json,dataset.json,events-index.md}` with every event at
-`detail_status: "none"` (calendar-level only, same as LA). Update `cities`
+`detail_status: "none"` (calendar-level only — bootstrap first, then walk
+priority events on Partiful the way SF and LA both eventually were). Update `cities`
 list and `CITIES` dict at the top of `query_events.py` to add the new slug so
 `--city nyc` validates, then update SKILL.md's frontmatter/intro and this
 file's tables to mention the new city.
