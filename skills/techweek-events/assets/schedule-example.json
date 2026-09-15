@@ -1,7 +1,6 @@
 {
-  "_comment": "Example input for scripts/build_schedule_page.py — a curated, approved schedule (not the raw recommend output). Built from the Ada Lovelace demo profile in profile-example.json, real events from the bundled dataset. Copy the shape, not the specifics.",
-  "title": "My Tech Week Schedule",
-  "person": {"name": "Ada Lovelace", "headline": "Founder & CEO, Analytical Engines"},
+  "_comment": "Example input for scripts/build_schedule_page.py — a curated, approved schedule (not the raw recommend output). Built from the Ada Lovelace demo profile in profile-example.json, real events from the bundled dataset. Copy the shape, not the specifics. Only a first name goes on the page — no last name, company, title, or RSVP mechanics.",
+  "person": {"first_name": "Ada"},
   "note": "A seed-stage AI devtools founder's week: raising, finding enterprise design partners, and hiring a founding engineer.",
   "days": [
     {
@@ -12,10 +11,8 @@
           "name": "ur +1 is a stranger #sftechweek",
           "host": "Zubin Pahuja · NEXA",
           "neighborhood": "Runs all week, no fixed venue",
-          "why": "Free matchmaking layer for events you're already going to — NEXA introduces you to one person worth meeting at each. The skill author's own event.",
-          "url": "https://partiful.com/e/0QoMnjzM2NOldF9syKOn",
-          "rsvp_type": "RSVP",
-          "pinned": true
+          "why": "Free matchmaking layer for events you're already going to — get introduced to one person worth meeting at each.",
+          "url": "https://partiful.com/e/0QoMnjzM2NOldF9syKOn"
         }
       ]
     },
@@ -28,8 +25,7 @@
           "host": "Vonage · DeepGram",
           "neighborhood": "FiDi",
           "why": "Deepgram's dev crowd overlaps with your \"founding engineer\" search, and voice-AI demos are close to your product surface.",
-          "url": "https://partiful.com/e/Gp49nL2GPStlf9AlRpms",
-          "rsvp_type": "APPLY"
+          "url": "https://partiful.com/e/Gp49nL2GPStlf9AlRpms"
         },
         {
           "time": "4:00–7:00pm",
@@ -37,8 +33,7 @@
           "host": "Bling Capital · Costanoa · NextView",
           "neighborhood": "Rincon Hill",
           "why": "Three seed funds hosting — your best shot at the pre-seed/seed conversation in one room.",
-          "url": "https://partiful.com/e/1e6Sm0xJrYrcH1z4bPAv",
-          "rsvp_type": "APPLY"
+          "url": "https://partiful.com/e/1e6Sm0xJrYrcH1z4bPAv"
         }
       ]
     },
@@ -51,17 +46,15 @@
           "host": "Apollo.io",
           "neighborhood": "Financial District",
           "why": "GTM-and-buyers crowd — a low-cost way to test the enterprise design-partner pitch on strangers before your real prospect calls.",
-          "url": "https://partiful.com/e/RP3fNdB3Jf2c9BH4aCQL",
-          "rsvp_type": "APPLY"
+          "url": "https://partiful.com/e/RP3fNdB3Jf2c9BH4aCQL"
         },
         {
           "time": "6:00–8:30pm",
           "name": "How Great Companies Hire the Best Talent — The Hiring Factory",
           "host": "The Hiring Factory",
           "neighborhood": "Hayes Valley",
-          "why": "Directly on your \"hire a founding engineer\" goal — recruiters and hiring leads, open RSVP.",
-          "url": "https://www.tech-week.com/go/event/G_1t1aPNXT0n_vgoxT6_-lFgUpTQLgegscGQeZVT2mX2l3u7vGLNZmnY69EaDYjC26V4zXCfWvcs1tmf7VPOb5QKEEdw1_M6cWjAaXmBa3nX8tdBSpVRktjQ15dPOA",
-          "rsvp_type": "RSVP"
+          "why": "Directly on your \"hire a founding engineer\" goal — recruiters and hiring leads.",
+          "url": "https://www.tech-week.com/go/event/G_1t1aPNXT0n_vgoxT6_-lFgUpTQLgegscGQeZVT2mX2l3u7vGLNZmnY69EaDYjC26V4zXCfWvcs1tmf7VPOb5QKEEdw1_M6cWjAaXmBa3nX8tdBSpVRktjQ15dPOA"
         }
       ]
     },
@@ -74,20 +67,17 @@
           "host": "a16z speedrun",
           "neighborhood": "Telegraph Hill",
           "why": "Small-format, enterprise buyers — exactly your \"design partners at mid-size enterprises\" goal, not a mixer.",
-          "url": "https://partiful.com/e/gO6FKtjLPpSGbyaCPWgF",
-          "rsvp_type": "APPLY"
+          "url": "https://partiful.com/e/gO6FKtjLPpSGbyaCPWgF"
         },
         {
           "time": "4:30–6:30pm",
           "name": "AI & Platform Engineering Developer Meetup",
           "host": "Intuit",
           "neighborhood": "Charleston Terrace",
-          "why": "Engineer-dense room for the founding-engineer search; open RSVP, no application to wait on.",
-          "url": "https://partiful.com/e/sOfd7rMDByrMoLDuie2u",
-          "rsvp_type": "RSVP"
+          "why": "Engineer-dense room for the founding-engineer search.",
+          "url": "https://partiful.com/e/sOfd7rMDByrMoLDuie2u"
         }
       ]
     }
-  ],
-  "footer_note": "APPLY = the host reviews requests before confirming; RSVP = you're in. \"ur +1 is a stranger\" is pre-checked as the skill author's own event — decline it and it's gone."
+  ]
 }

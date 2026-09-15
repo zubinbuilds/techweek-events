@@ -9,18 +9,22 @@ Tech Week schedule" — instead of a wall of chat text.
 Input is a small JSON file (see assets/schedule-example.json for the shape):
 
 {
-  "title": "My Tech Week Schedule",           # optional
-  "person": {"name": "Ada Lovelace", "headline": "Founder & CEO, Analytical Engines"},
+  "title": "Ada's Tech Week Schedule",   # optional — auto-built from person.first_name if omitted
+  "person": {"first_name": "Ada"},       # first name only; nothing else about the person goes on the page
   "note": "One or two sentences on the shape of the week.",   # optional
   "days": [
     {"label": "Tue Oct 6", "events": [
       {"time": "8:00–9:00am", "name": "...", "host": "...",
-       "neighborhood": "Civic Center", "why": "...", "url": "https://...",
-       "rsvp_type": "RSVP" | "APPLY" | null, "pinned": false}
+       "neighborhood": "Civic Center", "why": "...", "url": "https://..."}
     ]}
   ],
-  "footer_note": "optional extra line, e.g. RSVP status legend"
+  "footer_note": "optional extra line"
 }
+
+This page is meant to be handed to other people, so it carries none of the
+attendee's identifying details beyond a first name in the title — no last
+name, company, title, or RSVP mechanics (application vs. instant RSVP,
+waitlist status, etc.). It's just the plan: what, when, where, and why.
 
 Usage:
     python3 build_schedule_page.py schedule.json -o my-schedule.html
@@ -46,8 +50,6 @@ CSS = """
 :root {
   --bg: #f4f3fa; --card: #ffffff; --ink: #16151f; --sub: #6b6879;
   --line: #e2dfee; --accent: #3733e0; --accent-ink: #ffffff;
-  --pin-bg: #fff8e6; --pin-line: #e3cb84; --pin-ink: #7a5b12;
-  --apply-bg: #ece9fb; --apply-ink: #3733e0;
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
@@ -55,15 +57,11 @@ CSS = """
   :root:not([data-theme="light"]) {
     --bg: #131220; --card: #1c1b2c; --ink: #eeecf7; --sub: #a29dbd;
     --line: #2e2b45; --accent: #9a95ff; --accent-ink: #131220;
-    --pin-bg: #2a2313; --pin-line: #5c4a24; --pin-ink: #e3c37e;
-    --apply-bg: #262247; --apply-ink: #b6b1ff;
   }
 }
 :root[data-theme="dark"] {
   --bg: #131220; --card: #1c1b2c; --ink: #eeecf7; --sub: #a29dbd;
   --line: #2e2b45; --accent: #9a95ff; --accent-ink: #131220;
-  --pin-bg: #2a2313; --pin-line: #5c4a24; --pin-ink: #e3c37e;
-  --apply-bg: #262247; --apply-ink: #b6b1ff;
 }
 * { box-sizing: border-box; }
 body {
@@ -81,7 +79,6 @@ h1 {
   font-family: var(--serif); font-weight: 600; font-size: 2.1rem; margin: 0 0 6px;
   letter-spacing: -0.01em; text-wrap: balance; line-height: 1.15;
 }
-.headline { color: var(--sub); font-size: 0.98rem; margin: 0 0 14px; font-weight: 600; }
 .note { font-size: 1rem; margin: 0; max-width: 60ch; }
 .day { margin: 34px 0 0; }
 .day h2 {
@@ -92,25 +89,17 @@ h1 {
   background: var(--card); border: 1px solid var(--line); border-radius: 14px;
   padding: 16px 18px; margin-bottom: 12px;
 }
-.card.pinned { background: var(--pin-bg); border-color: var(--pin-line); }
-.card .row1 { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
 .card .time {
   font-size: 0.8rem; color: var(--sub); white-space: nowrap; font-weight: 600;
-  font-variant-numeric: tabular-nums; letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums; letter-spacing: 0.01em; display: block; margin-bottom: 4px;
 }
-.card .name { font-weight: 700; font-size: 1.05rem; margin: 4px 0 3px; text-wrap: balance; }
+.card .name { font-weight: 700; font-size: 1.05rem; margin: 0 0 3px; text-wrap: balance; }
 .card .meta { font-size: 0.86rem; color: var(--sub); margin-bottom: 8px; }
 .card .why { font-size: 0.93rem; margin: 8px 0 10px; }
 .card a.link {
   font-size: 0.85rem; text-decoration: none; color: var(--accent); font-weight: 700;
 }
 .card a.link:hover, .card a.link:focus-visible { text-decoration: underline; }
-.chip {
-  display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.03em;
-  text-transform: uppercase; padding: 3px 9px; border-radius: 999px;
-  background: var(--apply-bg); color: var(--apply-ink); vertical-align: middle;
-}
-.chip.pin { background: transparent; border: 1px solid var(--pin-line); color: var(--pin-ink); }
 footer {
   margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--line);
   font-size: 0.82rem; color: var(--sub);
@@ -127,10 +116,9 @@ def esc(s):
 
 
 def render(data: dict) -> str:
-    title = data.get("title") or "My Tech Week Schedule"
     person = data.get("person") or {}
-    name = person.get("name")
-    headline = person.get("headline")
+    first_name = person.get("first_name")
+    title = data.get("title") or (f"{first_name}'s Tech Week Schedule" if first_name else "My Tech Week Schedule")
     note = data.get("note")
     footer_note = data.get("footer_note")
 
@@ -141,9 +129,6 @@ def render(data: dict) -> str:
     parts.append("<header>")
     parts.append("<p class='eyebrow'>SF Tech Week 2026 · Oct 5&ndash;11</p>")
     parts.append(f"<h1>{esc(title)}</h1>")
-    if name or headline:
-        sub = " · ".join(x for x in [name, headline] if x)
-        parts.append(f"<p class='headline'>{esc(sub)}</p>")
     if note:
         parts.append(f"<p class='note'>{esc(note)}</p>")
     parts.append("</header>")
@@ -152,17 +137,8 @@ def render(data: dict) -> str:
         label = day.get("label") or day.get("date") or ""
         parts.append(f"<section class='day'><h2>{esc(label)}</h2>")
         for ev in day.get("events", []):
-            pinned = bool(ev.get("pinned"))
-            card_cls = "card pinned" if pinned else "card"
-            parts.append(f"<div class='{card_cls}'>")
-            parts.append("<div class='row1'>")
+            parts.append("<div class='card'>")
             parts.append(f"<span class='time'>{esc(ev.get('time', ''))}</span>")
-            rtype = (ev.get("rsvp_type") or "").upper()
-            if rtype == "APPLY":
-                parts.append("<span class='chip'>apply</span>")
-            if pinned:
-                parts.append("<span class='chip pin'>author's event</span>")
-            parts.append("</div>")
             parts.append(f"<div class='name'>{esc(ev.get('name', ''))}</div>")
             meta_bits = [b for b in [ev.get("host"), ev.get("neighborhood")] if b]
             if meta_bits:
