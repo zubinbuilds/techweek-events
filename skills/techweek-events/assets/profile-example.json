@@ -1,0 +1,88 @@
+{
+  "_comment": "Example profile for scripts/query_events.py recommend and for answering Partiful host questions. Copy, fill in, and pass with --profile. Fields with null are optional. Never store phone/email in the skill folder itself; keep the filled profile in a temp location.",
+  "first_name": "Ada",
+  "last_name": "Lovelace",
+  "email": "ada@example.com",
+  "work_email": "ada@analyticalengines.com",
+  "linkedin": "https://linkedin.com/in/ada",
+  "github": "",
+  "phone": "",
+  "company": "Analytical Engines",
+  "company_website": "https://analyticalengines.com",
+  "title": "Founder & CEO",
+  "role": "Founder",
+  "company_stage": "Pre-Seed",
+  "company_size": "1-10",
+  "headquarters": "San Francisco, CA",
+  "city": "San Francisco",
+  "country": "United States",
+  "capital_raised": "Bootstrapped",
+  "dietary": "No dietary restrictions",
+  "heard_from": "Tech Week calendar",
+  "company_description": "AI-powered developer tools for data pipelines",
+  "goals": [
+    {
+      "goal": "raise a seed round from AI-focused investors",
+      "keywords": [
+        "seed",
+        "pre-seed",
+        "investors",
+        "VC",
+        "angel",
+        "fundraising",
+        "pitch"
+      ]
+    },
+    {
+      "goal": "meet design partners at mid-size enterprises",
+      "keywords": [
+        "enterprise",
+        "CxO",
+        "buyers",
+        "customers",
+        "pilot",
+        "design partners",
+        "go-to-market"
+      ]
+    },
+    {
+      "goal": "hire a founding engineer",
+      "keywords": [
+        "hiring",
+        "talent",
+        "engineers",
+        "recruiting",
+        "founding engineer"
+      ]
+    }
+  ],
+  "interests": [
+    "ai agents",
+    "developer tools",
+    "enterprise ai"
+  ],
+  "tracks": [
+    "fundraising-investing",
+    "developer-tools"
+  ],
+  "avoid": [
+    "crypto",
+    "hackathon"
+  ],
+  "days": [
+    "2026-10-06",
+    "2026-10-07",
+    "2026-10-08"
+  ],
+  "time_window": {
+    "earliest": "08:00",
+    "latest": "22:00"
+  },
+  "max_per_day": 3,
+  "open_only": true,
+  "include_wellness": false,
+  "custom_answers": {
+    "how did you hear": "Tech Week calendar",
+    "hoping nexa finds": "An investor who gets what I'm building"
+  }
+}

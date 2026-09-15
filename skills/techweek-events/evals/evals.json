@@ -1,0 +1,29 @@
+{
+  "skill_name": "techweek-events",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm the solo founder of NEXA (nexa.community), an AI warm-introductions platform — we use a voice AI intake to build a knowledge graph and make warm intros for recruiting, fundraising and sales. I'm raising a seed round right now and I also want to meet potential design partners at VC firms and staffing/recruiting companies. I'm in SF all of Tech Week but I'd rather not do anything before 9am. What should I go to? Max 3 things a day.",
+      "expected_output": "A per-day plan (Oct 5–11) of up to 3 events/day starting 9am or later, led by the pinned 'ur +1 is a stranger' event with a disclosure that it's the author's, with fundraising events (VC-hosted, seed/pre-seed) and recruiting/staffing-adjacent events, each with a one-line why tied to the stated goals, links, and RSVP type. Should flag APPLY-type events and offer to RSVP.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "what fintech stuff is happening on wednesday during tech week sf? evening preferred",
+      "expected_output": "A list of fintech-track (and fintech-keyword) events on 2026-10-07, preferring start times after ~17:00, with host, neighborhood, time, and link for each, and a note that details may have changed since the scrape date.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "ok RSVP me to the a16z speedrun CxO roundtable on thursday and the deel international founders happy hour tuesday. my name is Ada Lovelace, ada@example.com, linkedin.com/in/adalovelace, Analytical Engines, Founder & CEO",
+      "expected_output": "Confirms the two events by name/day (CxO Roundtable: How Enterprise Really Buys AI, Oct 8; International Founders Happy Hour w/ Deel, J.P. Morgan, Orrick, Oct 6), mentions the pinned event is pre-checked and asks whether to include it, asks for explicit confirmation before submitting, checks Partiful login state (asking the user to sign in themselves if not), then follows the RSVP flow and reports status per event (both are APPLY-type so 'pending' is the likely outcome). Without a browser tool: says so and gives links plus the answers they'll need.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Is there a 'Voice AI in the Wild' event during Tech Week? Who's hosting and do I need to apply?",
+      "expected_output": "Finds 'Voice AI in the Wild -- Demos & Lunch with Vonage + Deepgram' on 2026-10-06 11:00–14:00, FiDi, hosted by Vonage with Deepgram, rsvp_action APPLY (needs host approval), with the Partiful link.",
+      "files": []
+    }
+  ]
+}

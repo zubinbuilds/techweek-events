@@ -1,0 +1,14 @@
+{
+  "name": "techweek-events",
+  "owner": {
+    "name": "Zubin Pahuja",
+    "url": "https://nexa.community"
+  },
+  "plugins": [
+    {
+      "name": "techweek-events",
+      "source": "./",
+      "description": "SF Tech Week 2026 concierge: bundled calendar of 1,639 events, goal-based recommendations, and Partiful RSVPs with your approval."
+    }
+  ]
+}

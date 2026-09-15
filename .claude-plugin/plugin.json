@@ -1,0 +1,12 @@
+{
+  "name": "techweek-events",
+  "description": "SF Tech Week 2026 concierge: bundled calendar of 1,639 events, goal-based recommendations, and Partiful RSVPs with your approval.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Zubin Pahuja",
+    "url": "https://nexa.community"
+  },
+  "homepage": "https://github.com/zubinpahuja/techweek-events",
+  "license": "MIT",
+  "keywords": ["tech week", "sf tech week", "events", "partiful", "networking", "a16z"]
+}

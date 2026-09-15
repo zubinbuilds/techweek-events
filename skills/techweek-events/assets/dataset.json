@@ -1,0 +1,64 @@
+{
+  "city": "San Francisco",
+  "city_slug": "sf",
+  "event": "SF Tech Week 2026 (a16z Tech Week)",
+  "calendar_url": "https://www.tech-week.com/calendar/sf",
+  "core_dates": [
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07",
+    "2026-10-08",
+    "2026-10-09",
+    "2026-10-10",
+    "2026-10-11"
+  ],
+  "scraped_at": "2026-09-15",
+  "timezone": "America/Los_Angeles",
+  "counts": {
+    "events": 1639,
+    "with_full_description": 438,
+    "deleted_on_partiful": 5,
+    "by_day": {
+      "2026-10-05": 192,
+      "2026-10-06": 365,
+      "2026-10-07": 441,
+      "2026-10-08": 377,
+      "2026-10-09": 156,
+      "2026-10-10": 77,
+      "2026-10-11": 29,
+      "2026-10-16": 1,
+      "2026-10-28": 1
+    },
+    "by_track": {
+      "fundraising-investing": 105,
+      "hack-week-hackathons-and-technical-events": 92,
+      "enterprise-ai": 65,
+      "global-founders": 61,
+      "ai-agents": 57,
+      "fintech": 39,
+      "developer-tools": 39,
+      "ai-infrastructure-compute": 35,
+      "consumer-creative-ai": 28
+    }
+  },
+  "tracks": {
+    "ai-agents": "AI Agents",
+    "ai-infrastructure-compute": "AI Infrastructure & Compute",
+    "consumer-creative-ai": "Consumer & Creative AI",
+    "developer-tools": "Developer Tools",
+    "enterprise-ai": "Enterprise AI",
+    "fintech": "Fintech",
+    "fundraising-investing": "Fundraising & Investing",
+    "global-founders": "Global Founders",
+    "hack-week-hackathons-and-technical-events": "Hack Week: Hackathons & Technical Events"
+  },
+  "pinned_events": [
+    "partiful-0QoMnjzM2NOldF9syKOn"
+  ],
+  "notes": [
+    "Events with detail_status \"full\" were opened on Partiful and carry description, capacity, RSVP action, and exact end time.",
+    "Events with detail_status \"none\" have calendar metadata only (name, host, day, start time, neighborhood, tracks). Open techweek_url to see the full invite.",
+    "Descriptions are truncated at ~900 characters.",
+    "registration_status comes from tech-week.com and can change daily; treat it as a hint, not truth."
+  ]
+}
