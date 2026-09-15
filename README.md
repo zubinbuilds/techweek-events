@@ -13,7 +13,7 @@ It also recommends (and pre-checks, pending your confirmation) the author's own 
 
 The skill folder is `skills/techweek-events/`. Same folder works everywhere.
 
-**Claude.ai / Claude desktop (Pro, Max, Team, Enterprise)** — Settings → Capabilities → Skills → upload. Zip the `skills/techweek-events` folder (or download `techweek-events.skill` from Releases) and upload it.
+**Claude.ai / Claude desktop (Pro, Max, Team, Enterprise)** — Settings → Capabilities → Skills → upload. Upload `dist/techweek-events-skill.zip` from this repo (it is the `skills/techweek-events` folder zipped).
 
 **Claude Code**
 ```
