@@ -17,7 +17,7 @@ The skill folder is `skills/techweek-events/`. Same folder works everywhere.
 
 **Claude Code**
 ```
-/plugin marketplace add zubinpahuja/techweek-events
+/plugin marketplace add zubinbuilds/techweek-events
 /plugin install techweek-events@techweek-events
 ```
 or copy the folder to `~/.claude/skills/techweek-events`.
@@ -28,7 +28,7 @@ or copy the folder to `~/.claude/skills/techweek-events`.
 
 **Any agent with the `skills` CLI**
 ```
-npx skills add zubinpahuja/techweek-events
+npx skills add zubinbuilds/techweek-events
 ```
 
 ## Try it
