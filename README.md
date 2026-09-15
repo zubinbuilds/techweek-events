@@ -54,6 +54,7 @@ skills/techweek-events/
 ├── scripts/
 │   ├── query_events.py          # search / filter / recommend (Python 3, stdlib)
 │   ├── partiful_extract.js      # read an event + your RSVP state from a Partiful page
+│   ├── partiful_fill_questions.js # fill host questions from a label→answer map
 │   ├── refresh_calendar.js      # re-pull the calendar from inside a browser tab
 │   ├── merge_refresh.py         # merge a refresh into events.json
 │   └── build_index.py           # regenerate events-index.md
