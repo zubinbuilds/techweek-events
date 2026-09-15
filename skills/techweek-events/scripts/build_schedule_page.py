@@ -65,10 +65,8 @@ WEEK = [
 
 CSS = """
 :root {
-  --bg: #f4f7f3; --bg2: #e6f0e6; --card: #ffffff; --ink: #16221a; --sub: #5d7264;
-  --line: #dde6dc; --accent: #1f7a52; --accent-ink: #ffffff; --gold: #a8781f;
-  --shadow: 0 1px 2px rgba(16,36,24,0.05), 0 8px 20px -10px rgba(16,36,24,0.14);
-  --shadow-hover: 0 2px 4px rgba(16,36,24,0.07), 0 16px 30px -12px rgba(16,36,24,0.20);
+  --bg: #f7f4ee; --ink: #1c1b17; --sub: #7d7867; --faint: #a8a292;
+  --accent: #1f7a52; --accent-ink: #f7f4ee; --pill-bg: #eae5d8;
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   padding-top: env(safe-area-inset-top, 0px);
@@ -76,30 +74,25 @@ CSS = """
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0e1712; --bg2: #132119; --card: #17251d; --ink: #edf3ee; --sub: #91a89a;
-    --line: #263a2d; --accent: #52d394; --accent-ink: #08150e; --gold: #e2b768;
-    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 22px -10px rgba(0,0,0,0.5);
-    --shadow-hover: 0 2px 4px rgba(0,0,0,0.35), 0 18px 32px -12px rgba(0,0,0,0.6);
+    --bg: #151513; --ink: #efece3; --sub: #938f82; --faint: #605c50;
+    --accent: #4fd394; --accent-ink: #0e1310; --pill-bg: #232320;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0e1712; --bg2: #132119; --card: #17251d; --ink: #edf3ee; --sub: #91a89a;
-  --line: #263a2d; --accent: #52d394; --accent-ink: #08150e; --gold: #e2b768;
-  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 22px -10px rgba(0,0,0,0.5);
-  --shadow-hover: 0 2px 4px rgba(0,0,0,0.35), 0 18px 32px -12px rgba(0,0,0,0.6);
+  --bg: #151513; --ink: #efece3; --sub: #938f82; --faint: #605c50;
+  --accent: #4fd394; --accent-ink: #0e1310; --pill-bg: #232320;
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0; padding-block: 40px 64px; padding-inline: max(18px, env(safe-area-inset-left, 0px));
-  background: linear-gradient(180deg, var(--bg2), var(--bg) 340px);
-  color: var(--ink); font-family: var(--sans);
+  margin: 0; padding-block: 44px 72px; padding-inline: max(20px, env(safe-area-inset-left, 0px));
+  background: var(--bg); color: var(--ink); font-family: var(--sans);
   line-height: 1.55; -webkit-font-smoothing: antialiased;
 }
-.wrap { max-width: 600px; margin: 0 auto; }
+.wrap { max-width: 580px; margin: 0 auto; }
 .eyebrow {
-  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.13em;
-  text-transform: uppercase; color: var(--gold); margin: 0 0 12px;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--sub); margin: 0 0 12px;
 }
 header { margin-bottom: 8px; }
 h1 {
@@ -108,83 +101,66 @@ h1 {
 }
 
 .week-strip {
-  display: flex; gap: 8px; margin: 26px 0 32px; padding-bottom: 4px;
+  display: flex; gap: 6px; margin: 30px 0 40px; padding-bottom: 4px;
   overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 }
 .week-strip::-webkit-scrollbar { display: none; }
 .week-pill {
-  flex: 0 0 auto; width: 46px; height: 56px; border-radius: 13px;
-  border: 1px solid var(--line); background: var(--card);
+  flex: 0 0 auto; width: 44px; height: 54px; border-radius: 12px; background: var(--pill-bg);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 2px; text-decoration: none; color: var(--sub);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  gap: 2px; text-decoration: none; color: var(--faint);
+  transition: transform 0.15s ease, background 0.15s ease;
 }
 a.week-pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.week-pill .wd { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; }
-.week-pill .wn { font-family: var(--serif); font-weight: 700; font-size: 1.1rem; color: var(--ink); line-height: 1; }
-.week-pill.active { background: var(--accent); border-color: var(--accent); box-shadow: var(--shadow); }
-.week-pill.active .wd, .week-pill.active .wn { color: var(--accent-ink); }
-.week-pill.empty { opacity: 0.4; }
+.week-pill .wd { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; }
+.week-pill .wn { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; line-height: 1; }
+.week-pill.active { background: var(--accent); color: var(--accent-ink); }
 @media (hover: hover) {
-  a.week-pill.active:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  a.week-pill.active:hover { transform: translateY(-2px); }
 }
 
-.day { margin: 34px 0 0; scroll-margin-top: 16px; }
+.day { margin: 40px 0 0; scroll-margin-top: 16px; }
 .day:first-of-type { margin-top: 0; }
-.day-head { display: flex; align-items: baseline; gap: 10px; margin: 0 0 14px; padding-bottom: 10px; border-bottom: 2px solid var(--line); }
-.day-head .day-num { font-family: var(--serif); font-weight: 700; font-size: 1.5rem; color: var(--gold); line-height: 1; }
-.day-head .day-name { font-family: var(--serif); font-weight: 600; font-style: italic; font-size: 1.12rem; color: var(--ink); }
+.day-head { display: flex; align-items: baseline; gap: 10px; margin: 0 0 20px; }
+.day-head .day-num { font-family: var(--serif); font-weight: 600; font-size: 1.3rem; color: var(--accent); line-height: 1; }
+.day-head .day-name { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sub); }
 
-.cards { display: flex; flex-direction: column; gap: 10px; }
-.card {
-  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 14px;
-  padding: 15px 18px 15px 22px; box-shadow: var(--shadow);
-  transition: box-shadow 0.18s ease, transform 0.18s ease;
-}
-.card::before {
-  content: ""; position: absolute; left: 0; top: 12px; bottom: 12px; width: 4px;
-  border-radius: 4px; background: var(--accent);
-}
-@media (hover: hover) {
-  .card:hover { box-shadow: var(--shadow-hover); transform: translateY(-1px); }
-}
-.card .time {
+.events { display: flex; flex-direction: column; gap: 30px; }
+.event .time {
   font-size: 0.78rem; color: var(--accent); white-space: nowrap; font-weight: 700;
-  font-variant-numeric: tabular-nums; letter-spacing: 0.02em; display: block; margin-bottom: 6px;
+  font-variant-numeric: tabular-nums; letter-spacing: 0.02em; display: block; margin-bottom: 5px;
 }
-.card .name {
-  font-family: var(--serif); font-weight: 600; font-size: 1.15rem; margin: 0 0 4px;
-  text-wrap: balance; line-height: 1.28;
+.event .name {
+  font-family: var(--serif); font-weight: 600; font-size: 1.2rem; margin: 0 0 4px;
+  text-wrap: balance; line-height: 1.3;
 }
-.card .name a {
+.event .name a {
   color: var(--ink); text-decoration: none;
   background-image: linear-gradient(var(--accent), var(--accent));
-  background-repeat: no-repeat; background-position: 0 100%; background-size: 0% 2px;
+  background-repeat: no-repeat; background-position: 0 100%; background-size: 0% 1.5px;
   transition: background-size 0.2s ease; padding-bottom: 1px;
 }
 @media (hover: hover) {
-  .card .name a:hover { background-size: 100% 2px; }
+  .event .name a:hover { background-size: 100% 1.5px; }
 }
-.card .name a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.card .name .ext { color: var(--accent); font-weight: 700; font-size: 0.8em; margin-left: 1px; }
-.card .meta { font-size: 0.85rem; color: var(--sub); margin-bottom: 8px; }
-.card .why { font-size: 0.93rem; margin: 8px 0 0; }
+.event .name a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.event .name .ext { color: var(--accent); font-weight: 700; font-size: 0.75em; margin-left: 1px; }
+.event .meta { font-size: 0.85rem; color: var(--sub); margin-bottom: 8px; }
+.event .why { font-size: 0.95rem; margin: 0; max-width: 56ch; }
 
 footer {
-  margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--line);
-  font-size: 0.82rem; color: var(--sub);
+  margin-top: 56px; font-size: 0.8rem; color: var(--faint);
 }
 footer p { margin: 0 0 4px; }
-footer a { color: var(--accent); text-decoration: none; font-weight: 700; }
-footer a:hover, footer a:focus-visible { text-decoration: underline; }
+footer a { color: var(--sub); text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
+footer a:hover, footer a:focus-visible { color: var(--accent); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 @media (max-width: 400px) {
   h1 { font-size: 1.55rem; }
-  .card { padding: 13px 15px 13px 19px; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
-  .card:hover, a.week-pill:hover { transform: none !important; }
+  a.week-pill:hover { transform: none !important; }
 }
 """
 
@@ -231,7 +207,7 @@ def render(data: dict) -> str:
         if iso in present_dates:
             parts.append(f"<a class='week-pill active' href='#d-{iso}'><span class='wd'>{dow}</span><span class='wn'>{dom}</span></a>")
         else:
-            parts.append(f"<span class='week-pill empty'><span class='wd'>{dow}</span><span class='wn'>{dom}</span></span>")
+            parts.append(f"<span class='week-pill'><span class='wd'>{dow}</span><span class='wn'>{dom}</span></span>")
     parts.append("</nav>")
 
     for day in days:
@@ -247,9 +223,9 @@ def render(data: dict) -> str:
             f"<div class='day-head'><span class='day-num'>{esc(day_num)}</span>"
             f"<span class='day-name'>{esc(label)}</span></div>"
         )
-        parts.append("<div class='cards'>")
+        parts.append("<div class='events'>")
         for ev in day.get("events", []):
-            parts.append("<div class='card'>")
+            parts.append("<article class='event'>")
             parts.append(f"<span class='time'>{esc(ev.get('time', ''))}</span>")
             name = esc(ev.get("name", ""))
             if ev.get("url"):
@@ -263,8 +239,8 @@ def render(data: dict) -> str:
             if meta_bits:
                 parts.append(f"<div class='meta'>{esc(' · '.join(meta_bits))}</div>")
             if ev.get("why"):
-                parts.append(f"<div class='why'>{esc(ev['why'])}</div>")
-            parts.append("</div>")
+                parts.append(f"<p class='why'>{esc(ev['why'])}</p>")
+            parts.append("</article>")
         parts.append("</div></section>")
 
     parts.append("<footer>")

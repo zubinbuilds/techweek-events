@@ -152,18 +152,26 @@ this?" Build the small JSON `scripts/build_schedule_page.py` expects — see
 `assets/schedule-example.json` for the shape — from the same curated list and
 "why" lines you already wrote for the chat output, then:
 
-The page is meant to be shown to other people, so keep it to just the plan.
+The page is meant to be shown to other people — people often post these on
+X/LinkedIn, not just send them to a friend — so keep it to just the plan.
 Pass only the person's first name (`person.first_name`) — no last name,
 company, title, or a summary line about their goals. Leave off RSVP
-mechanics entirely: no chip or note for APPLY vs. RSVP, waitlist state, or
-"pending" status — that's useful while you're doing the RSVPing, not on a
-page for someone else to read. The pinned event goes on the page like any
-other pick, with a "why" that describes what it does — no "author's event"
-label and no mention that it's the skill author's own; the disclosure and
-pre-check are for the RSVP conversation, not this page. Each event's name
-is itself the link to Partiful/tech-week.com — there's no separate button.
-Give every day a `date` (YYYY-MM-DD) so the calendar strip at the top of the
-page can highlight which days have plans and jump-link to them.
+mechanics entirely: no chip or note for APPLY vs. RSVP, waitlist state,
+"pending", or "already applied" — that's useful while you're doing the
+RSVPing, not on a page for someone else to read. The pinned event goes on
+the page like any other pick, with a "why" that describes what it does — no
+"author's event" label, no "(you're hosting)", and no mention that it's the
+skill author's own; the disclosure and pre-check are for the RSVP
+conversation, not this page. Write every "why" in a neutral, informative
+voice — what the event is and why it's worth going to — rather than
+second-person coaching ("you should go because..."); it should read the
+same whether the page's owner is looking at their own plan or a stranger is
+looking at someone else's. Each event's name is itself the link to
+Partiful/tech-week.com — there's no separate button. Give every day a
+`date` (YYYY-MM-DD) so the calendar strip at the top of the page can
+highlight which days have plans and jump-link to them. Leave off events you
+deliberately excluded (a paid one, say) rather than footnoting them — the
+page is the plan, not a log of what didn't make it.
 
 - **Claude (claude.ai, Cowork, Claude Code with an Artifact tool):** run
   `python3 scripts/build_schedule_page.py schedule.json -o page.html`, then

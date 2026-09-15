@@ -1,5 +1,5 @@
 {
-  "_comment": "Example input for scripts/build_schedule_page.py — a curated, approved schedule (not the raw recommend output). Built from the Ada Lovelace demo profile in profile-example.json, real events from the bundled dataset. Copy the shape, not the specifics. Only a first name goes on the page — no last name, company, title, or RSVP mechanics. Give each day a \"date\" (YYYY-MM-DD) so the week strip at the top can highlight and jump-link to it.",
+  "_comment": "Example input for scripts/build_schedule_page.py — a curated, approved schedule (not the raw recommend output). Built from the Ada Lovelace demo profile in profile-example.json, real events from the bundled dataset. Copy the shape, not the specifics. Only a first name goes on the page — no last name, company, title, or RSVP mechanics. Give each day a \"date\" (YYYY-MM-DD) so the week strip at the top can highlight and jump-link to it. \"why\" lines are neutral/informative, not second-person advice — this page gets shared publicly.",
   "person": {"first_name": "Ada"},
   "days": [
     {
@@ -9,9 +9,9 @@
         {
           "time": "All week",
           "name": "ur +1 is a stranger #sftechweek",
-          "host": "Zubin Pahuja · NEXA",
+          "host": "NEXA",
           "neighborhood": "Runs all week, no fixed venue",
-          "why": "Free matchmaking layer for events you're already going to — get introduced to one person worth meeting at each.",
+          "why": "A week-long matchmaking layer — everyone gets introduced to one person worth meeting at whatever event they're already at.",
           "url": "https://partiful.com/e/0QoMnjzM2NOldF9syKOn"
         }
       ]
@@ -25,7 +25,7 @@
           "name": "Voice AI in the Wild — Demos & Lunch with Vonage + Deepgram",
           "host": "Vonage · DeepGram",
           "neighborhood": "FiDi",
-          "why": "Deepgram's dev crowd overlaps with your \"founding engineer\" search, and voice-AI demos are close to your product surface.",
+          "why": "Deepgram and Vonage demoing production voice AI over lunch — a good look at where the infra is heading.",
           "url": "https://partiful.com/e/Gp49nL2GPStlf9AlRpms"
         },
         {
@@ -33,7 +33,7 @@
           "name": "Meet SF's Early-Stage Founders and Investors",
           "host": "Bling Capital · Costanoa · NextView",
           "neighborhood": "Rincon Hill",
-          "why": "Three seed funds hosting — your best shot at the pre-seed/seed conversation in one room.",
+          "why": "Three seed funds hosting founders and investors in one room — one of the bigger fundraising mixers of the week.",
           "url": "https://partiful.com/e/1e6Sm0xJrYrcH1z4bPAv"
         }
       ]
@@ -47,7 +47,7 @@
           "name": "Apollo: Find Your Next 100 Customers",
           "host": "Apollo.io",
           "neighborhood": "Financial District",
-          "why": "GTM-and-buyers crowd — a low-cost way to test the enterprise design-partner pitch on strangers before your real prospect calls.",
+          "why": "A GTM-and-buyers crowd — good exposure for an early enterprise pitch before real prospect calls.",
           "url": "https://partiful.com/e/RP3fNdB3Jf2c9BH4aCQL"
         },
         {
@@ -55,7 +55,7 @@
           "name": "How Great Companies Hire the Best Talent — The Hiring Factory",
           "host": "The Hiring Factory",
           "neighborhood": "Hayes Valley",
-          "why": "Directly on your \"hire a founding engineer\" goal — recruiters and hiring leads.",
+          "why": "Recruiters and hiring leads talking through what it actually takes to land strong early hires.",
           "url": "https://www.tech-week.com/go/event/G_1t1aPNXT0n_vgoxT6_-lFgUpTQLgegscGQeZVT2mX2l3u7vGLNZmnY69EaDYjC26V4zXCfWvcs1tmf7VPOb5QKEEdw1_M6cWjAaXmBa3nX8tdBSpVRktjQ15dPOA"
         }
       ]
@@ -69,7 +69,7 @@
           "name": "CxO Roundtable: How Enterprise Really Buys AI",
           "host": "a16z speedrun",
           "neighborhood": "Telegraph Hill",
-          "why": "Small-format, enterprise buyers — exactly your \"design partners at mid-size enterprises\" goal, not a mixer.",
+          "why": "Small-format conversation with enterprise buyers on how AI actually gets adopted internally — not a mixer.",
           "url": "https://partiful.com/e/gO6FKtjLPpSGbyaCPWgF"
         },
         {
@@ -77,7 +77,7 @@
           "name": "AI & Platform Engineering Developer Meetup",
           "host": "Intuit",
           "neighborhood": "Charleston Terrace",
-          "why": "Engineer-dense room for the founding-engineer search.",
+          "why": "An engineer-dense evening on agentic product development and evals.",
           "url": "https://partiful.com/e/sOfd7rMDByrMoLDuie2u"
         }
       ]
