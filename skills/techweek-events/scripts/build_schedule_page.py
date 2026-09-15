@@ -48,66 +48,97 @@ FONTS_LINK = (
 
 CSS = """
 :root {
-  --bg: #f4f3fa; --card: #ffffff; --ink: #16151f; --sub: #6b6879;
+  --bg: #f4f3fa; --bg2: #eceafb; --card: #ffffff; --ink: #16151f; --sub: #6b6879;
   --line: #e2dfee; --accent: #3733e0; --accent-ink: #ffffff;
+  --shadow: 0 1px 2px rgba(29,23,68,0.04), 0 6px 16px -8px rgba(29,23,68,0.10);
+  --shadow-hover: 0 2px 4px rgba(29,23,68,0.06), 0 14px 28px -10px rgba(29,23,68,0.16);
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #131220; --card: #1c1b2c; --ink: #eeecf7; --sub: #a29dbd;
+    --bg: #131220; --bg2: #191830; --card: #1c1b2c; --ink: #eeecf7; --sub: #a29dbd;
     --line: #2e2b45; --accent: #9a95ff; --accent-ink: #131220;
+    --shadow: 0 1px 2px rgba(0,0,0,0.25), 0 6px 18px -8px rgba(0,0,0,0.45);
+    --shadow-hover: 0 2px 4px rgba(0,0,0,0.3), 0 16px 30px -10px rgba(0,0,0,0.55);
   }
 }
 :root[data-theme="dark"] {
-  --bg: #131220; --card: #1c1b2c; --ink: #eeecf7; --sub: #a29dbd;
+  --bg: #131220; --bg2: #191830; --card: #1c1b2c; --ink: #eeecf7; --sub: #a29dbd;
   --line: #2e2b45; --accent: #9a95ff; --accent-ink: #131220;
+  --shadow: 0 1px 2px rgba(0,0,0,0.25), 0 6px 18px -8px rgba(0,0,0,0.45);
+  --shadow-hover: 0 2px 4px rgba(0,0,0,0.3), 0 16px 30px -10px rgba(0,0,0,0.55);
 }
 * { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0; padding-block: 44px 72px; padding-inline: 20px;
-  background: var(--bg); color: var(--ink); font-family: var(--sans);
+  margin: 0; padding-block: 40px 64px; padding-inline: max(18px, env(safe-area-inset-left, 0px));
+  background: linear-gradient(180deg, var(--bg2), var(--bg) 320px);
+  color: var(--ink); font-family: var(--sans);
   line-height: 1.55; -webkit-font-smoothing: antialiased;
 }
-.wrap { max-width: 620px; margin: 0 auto; }
+.wrap { max-width: 600px; margin: 0 auto; }
 .eyebrow {
-  font-family: var(--sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--accent); margin: 0 0 10px;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--accent); margin: 0 0 12px;
 }
-header { margin-bottom: 34px; }
+header { margin-bottom: 30px; }
 h1 {
-  font-family: var(--serif); font-weight: 600; font-size: 2.1rem; margin: 0 0 6px;
-  letter-spacing: -0.01em; text-wrap: balance; line-height: 1.15;
+  font-family: var(--serif); font-weight: 600; font-size: clamp(1.7rem, 6vw, 2.3rem); margin: 0 0 8px;
+  letter-spacing: -0.01em; text-wrap: balance; line-height: 1.12;
 }
-.note { font-size: 1rem; margin: 0; max-width: 60ch; }
-.day { margin: 34px 0 0; }
+.note { font-size: 1rem; margin: 0; max-width: 60ch; color: var(--ink); opacity: 0.88; }
+.day { margin: 30px 0 0; }
+.day:first-of-type { margin-top: 6px; }
 .day h2 {
-  font-family: var(--serif); font-weight: 600; font-size: 1.15rem; font-style: italic;
-  color: var(--ink); margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line);
+  font-family: var(--serif); font-weight: 600; font-size: 1.1rem; font-style: italic;
+  color: var(--ink); margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line);
 }
+.cards { display: flex; flex-direction: column; gap: 10px; }
 .card {
-  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
-  padding: 16px 18px; margin-bottom: 12px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+  padding: 16px 18px; box-shadow: var(--shadow);
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+@media (hover: hover) {
+  .card:hover { box-shadow: var(--shadow-hover); transform: translateY(-1px); }
 }
 .card .time {
-  font-size: 0.8rem; color: var(--sub); white-space: nowrap; font-weight: 600;
-  font-variant-numeric: tabular-nums; letter-spacing: 0.01em; display: block; margin-bottom: 4px;
+  font-size: 0.78rem; color: var(--accent); white-space: nowrap; font-weight: 700;
+  font-variant-numeric: tabular-nums; letter-spacing: 0.02em; display: block; margin-bottom: 6px;
 }
-.card .name { font-weight: 700; font-size: 1.05rem; margin: 0 0 3px; text-wrap: balance; }
-.card .meta { font-size: 0.86rem; color: var(--sub); margin-bottom: 8px; }
-.card .why { font-size: 0.93rem; margin: 8px 0 10px; }
+.card .name { font-weight: 700; font-size: 1.06rem; margin: 0 0 3px; text-wrap: balance; line-height: 1.3; }
+.card .meta { font-size: 0.85rem; color: var(--sub); margin-bottom: 8px; }
+.card .why { font-size: 0.93rem; margin: 8px 0 12px; }
 .card a.link {
-  font-size: 0.85rem; text-decoration: none; color: var(--accent); font-weight: 700;
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.84rem; font-weight: 700; text-decoration: none;
+  color: var(--accent); border: 1.5px solid var(--accent); border-radius: 999px;
+  padding: 7px 14px; min-height: 32px; transition: background 0.15s ease, color 0.15s ease;
 }
-.card a.link:hover, .card a.link:focus-visible { text-decoration: underline; }
+@media (hover: hover) {
+  .card a.link:hover { background: var(--accent); color: var(--accent-ink); }
+}
+.card a.link:active { background: var(--accent); color: var(--accent-ink); }
+.card a.link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 footer {
-  margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--line);
+  margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line);
   font-size: 0.82rem; color: var(--sub);
 }
+footer p { margin: 0 0 4px; }
 footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
 footer a:hover, footer a:focus-visible { text-decoration: underline; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+@media (max-width: 400px) {
+  h1 { font-size: 1.55rem; }
+  .card { padding: 14px 15px; border-radius: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+  .card:hover { transform: none !important; }
+}
 """
 
 
@@ -135,7 +166,7 @@ def render(data: dict) -> str:
 
     for day in data.get("days", []):
         label = day.get("label") or day.get("date") or ""
-        parts.append(f"<section class='day'><h2>{esc(label)}</h2>")
+        parts.append(f"<section class='day'><h2>{esc(label)}</h2><div class='cards'>")
         for ev in day.get("events", []):
             parts.append("<div class='card'>")
             parts.append(f"<span class='time'>{esc(ev.get('time', ''))}</span>")
@@ -148,7 +179,7 @@ def render(data: dict) -> str:
             if ev.get("url"):
                 parts.append(f"<a class='link' href='{esc(ev['url'])}' target='_blank' rel='noopener'>View on Partiful →</a>")
             parts.append("</div>")
-        parts.append("</section>")
+        parts.append("</div></section>")
 
     parts.append("<footer>")
     if footer_note:
